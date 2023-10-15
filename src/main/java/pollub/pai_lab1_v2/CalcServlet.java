@@ -2,12 +2,11 @@ package pollub.pai_lab1_v2;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.*;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 
 @WebServlet(name = "calcServlet", value = "/calc-servlet")
 public class CalcServlet extends HttpServlet {
@@ -18,6 +17,24 @@ public class CalcServlet extends HttpServlet {
      protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+
+        HttpSession session = request.getSession(true);
+//        String info = "Witaj po raz pierwszy";
+//        Boolean visit = false;
+//
+//        ArrayList<String> lista = (ArrayList<String>) session.getAttribute("lista");
+//        String ciacho = "UserId";
+//        Cookie[ ] cookies = request.getCookies();
+//        if ( cookies != null ) {
+//            for (int i=0; i<cookies.length; i++) {
+//                Cookie c=cookies[i];
+//                if (ciacho.equals(c.getName()))
+//                    jakasOperacjaNaCookie(c.getValue());
+//         } }
+        // 1. mam zrobić historie operacji na kalkulatorze,
+         // 2. do tego potrzebuje użyć sesji i ciasteczka,
+         // 3. zapisywany do listy ma byc wynik operacji oblicz() z kazdej sesji
+
         try ( PrintWriter out = response.getWriter()) {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
@@ -25,8 +42,9 @@ public class CalcServlet extends HttpServlet {
             out.println("<title>Servlet HelloServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet HelloServlet at " + request.getContextPath() + "</h1>");
-            out.println("<h1>Wynik obliczeń " + oblicz(request) + "</h1>");
+            out.println("<h1>Wynik obliczeń </h1>");
+            out.println("<p>" + oblicz(request) + "</p>");
+            out.println(session);
             out.println("</body>");
             out.println("</html>");
         }
